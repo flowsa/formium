@@ -16,7 +16,16 @@ const digest = i =>
     .digest('hex');
 
 exports.sourceNodes = async ({ actions, cache }, options = {}) => {
-  const { createNode } = actions;
+  
+  const { createNode, touchNode, deleteNode } = actions
+  // touch nodes to ensure they aren't garbage collected
+  getNodesByType(POST_NODE_TYPE).forEach(node => touchNode(node)
+  getNodesByType(AUTHOR_NODE_TYPE).forEach(node =>
+    touchNode(node)
+  )
+
+  
+  // const { createNode } = actions;
   const {
     projectId,
     accessToken,
